@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Becky, Be My Valentine ❤️</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ff4f7a,#ff9a9e);
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
+  transition:0.6s;
+}
+
+body.night{
+  background:linear-gradient(135deg,#12001c,#2b0033);
+}
+
+section{padding:60px 20px;min-height:100vh}
+
+/* Hero */
+.hero{display:flex;flex-direction:column;justify-content:center;align-items:center}
+.hero img{
+  width:260px;height:260px;border-radius:50%;object-fit:cover;
+  border:6px solid white;box-shadow:0 0 40px rgba(255,255,255,.8);
+  opacity:0;animation:fadeIn 2s forwards;
+}
+
+.glow{
+  font-size:2.7rem;
+  text-shadow:0 0 10px #fff,0 0 30px #ff4f7a,0 0 60px #ff003c;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{text-shadow:0 0 10px #fff,0 0 30px #ff4f7a}
+  50%{text-shadow:0 0 20px #fff,0 0 60px #ff003c}
+}
+@keyframes fadeIn{to{opacity:1}}
+
+/* Message */
+.message{
+  max-width:900px;margin:auto;padding:40px;border-radius:20px;
+  background:rgba(255,255,255,.15);line-height:1.8
+}
+
+/* CTA */
+.cta{display:flex;flex-direction:column;justify-content:center;align-items:center}
+.buttons{position:relative;width:300px;height:120px}
+.buttons button{
+  position:absolute;padding:15px 35px;font-size:1.2rem;border:none;
+  border-radius:12px;font-weight:bold;color:white;cursor:pointer;
+}
+.yes{background:#ff003c;left:20px}
+.no{background:#ff7a9c;right:20px}
+.thank-you{display:none;font-size:2rem;margin-top:40px}
+
+/* Hearts */
+.heart{position:fixed;bottom:-20px;font-size:25px;animation:float 6s linear infinite}
+@keyframes float{0%{transform:translateY(0)}100%{transform:translateY(-100vh);opacity:0}}
+
+/* Night toggle */
+.toggle{
+  position:fixed;top:15px;right:15px;
+  background:white;color:#ff3d6e;padding:10px 20px;
+  border-radius:30px;font-weight:bold;cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<audio src="music.mp3" autoplay loop></audio>
+<div class="toggle">🌙 Night</div>
+
+<section class="hero">
+  <img src="becky.jpg">
+  <h1 class="glow">Becky ❤️</h1>
+  <h2>My Forever Valentine</h2>
+</section>
+
+<section>
+  <div id="typewriter"></div>
+  <div class="message">
+    Becky, from the moment you entered my life, everything became brighter. Your love fills my heart with warmth and joy, and every moment with you feels like a beautiful dream I never want to wake up from. You are my happiness, my inspiration, and the most precious gift life has ever given me.
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Will you be my Valentine? 💕</h2>
+  <div class="buttons">
+    <button class="yes">Yes</button>
+    <button class="no">No</button>
+  </div>
+  <div class="thank-you">Thank you, my love ❤️</div>
+</section>
+
+<script>
+/* Typewriter */
+const text="Becky, you are the most beautiful part of my world...";
+let i=0;const t=document.getElementById("typewriter");
+function type(){if(i<text.length){t.innerHTML+=text[i++];setTimeout(type,80)}}
+type();
+
+/* No button dodge */
+const no=document.querySelector(".no");
+no.addEventListener("mouseenter",()=>{
+  no.style.transform=`translate(${Math.random()*120-60}px,${Math.random()*60-30}px)`;
+});
+
+/* Yes hearts */
+document.querySelector(".yes").addEventListener("click",()=>{
+  document.querySelector(".thank-you").style.display="block";
+  for(let i=0;i<40;i++){
+    let h=document.createElement("div");
+    h.innerHTML="💖";h.style.position="fixed";h.style.left="50%";h.style.top="50%";
+    document.body.appendChild(h);
+    const a=Math.random()*2*Math.PI,d=Math.random()*300;
+    h.animate([{transform:"translate(0,0)"},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px)`,opacity:0}],{duration:1000});
+    setTimeout(()=>h.remove(),1000);
+  }
+});
+
+const toggle = document.querySelector(".toggle");
+
+toggle.onclick = () => {
+  document.body.classList.toggle("night");
+
+  if (document.body.classList.contains("night")) {
+    toggle.innerHTML = "☀️ Day";
+  } else {
+    toggle.innerHTML = "🌙 Night";
+  }
+};
+
+/* Swipe for mobile */
+let startX=0;
+document.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+document.addEventListener("touchend",e=>{
+  let diff=e.changedTouches[0].clientX-startX;
+  if(Math.abs(diff)>50){
+    window.scrollBy({top:diff<0?window.innerHeight:-window.innerHeight,behavior:"smooth"});
+  }
+});
+
+/* Floating hearts */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},500);
+</script>
+
+</body>
+</html>
