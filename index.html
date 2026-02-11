@@ -69,6 +69,17 @@ section{padding:60px 20px;min-height:100vh}
   background:white;color:#ff3d6e;padding:10px 20px;
   border-radius:30px;font-weight:bold;cursor:pointer;
 }
+  .reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 </style>
 </head>
 
@@ -98,6 +109,33 @@ section{padding:60px 20px;min-height:100vh}
   </div>
   <div class="thank-you">Thank you, my love ❤️</div>
 </section>
+
+  <section>
+  <div class="message reveal">
+    <h2>Why I Chose You, Becky 💖</h2>
+    <ul style="text-align:left;max-width:700px;margin:30px auto;font-size:1.1rem;line-height:1.8;">
+      <li>Because your heart is kind, and your love feels safe and warm.</li>
+      <li>Because your smile has the power to turn my worst days into beautiful ones.</li>
+      <li>Because you believe in me even when I doubt myself.</li>
+      <li>Because you make love feel easy, real, and deeply meaningful.</li>
+      <li>Because with you, I don’t just feel loved — I feel at home.</li>
+    </ul>
+
+    <h2>Things We Will Do When We Meet 💑</h2>
+    <ul style="text-align:left;max-width:700px;margin:30px auto;font-size:1.1rem;line-height:1.8;">
+      <li>Hold hands and walk slowly, just enjoying every second together.</li>
+      <li>Share long conversations, laughter, and quiet moments that feel perfect.</li>
+      <li>Take cute photos and create memories we’ll always look back on.</li>
+      <li>Go on a simple date that feels magical just because we’re together.</li>
+    </ul>
+
+    <h2>Our Little Dream ✨</h2>
+    <p style="max-width:700px;margin:20px auto;font-size:1.1rem;line-height:1.8;">
+      I dream of a future where we keep choosing each other every day — through smiles, through challenges, through everything. A future where we grow, laugh, build memories, and hold onto the love that brought us together. No matter where life takes us, I want it to always include you, Becky.
+    </p>
+  </div>
+</section>
+
 
 <script>
 /* Typewriter */
@@ -155,6 +193,22 @@ setInterval(()=>{
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
 },500);
+  const reveals = document.querySelectorAll(".reveal");
+
+function revealOnScroll() {
+  reveals.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    const height = window.innerHeight;
+
+    if (top < height - 100) {
+      el.classList.add("active");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+revealOnScroll();
+
 </script>
 
 </body>
