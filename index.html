@@ -212,6 +212,16 @@ function revealOnScroll() {
 window.addEventListener("scroll", revealOnScroll);
 revealOnScroll();
 
+const music = document.getElementById("music");
+
+document.addEventListener("click", () => {
+  music.play();
+}, { once: true });
+
+document.addEventListener("touchstart", () => {
+  music.play();
+}, { once: true });
+
 </script>
 
 </body>
